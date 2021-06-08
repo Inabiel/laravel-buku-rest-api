@@ -11,7 +11,7 @@ class Buku extends Model
 {
     use HasFactory;
     public $incrementing = false;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $primaryKey = 'id'; // or null
     protected $keyType = 'string';
     protected $fillable = ["kategori_id","judul","pengarang","penerbit","tahun_terbit","sampul","sinopsis"];
@@ -29,6 +29,6 @@ class Buku extends Model
         return 'string';
     }
     public function categories(){
-        return $this->hasOne(Kategori::class);
+        return $this->belongsTo(Kategori::class,'kategori_id','id');
     }
 }

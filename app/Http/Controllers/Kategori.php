@@ -2,49 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Buku as ModelsBuku;
-use App\Http\Requests\BookRequest;
+use App\Http\Requests\KategoriRequest;
+use App\Models\Kategori as ModelsKategori;
 
-
-class Buku extends Controller
+class Kategori extends Controller
 {
-    public function store(BookRequest $request){
-        $insert = ModelsBuku::create($request->all());
+    public function store(KategoriRequest $request)
+    {
+        $insert = ModelsKategori::create($request->all());
 
         return response()->json([
             'message' => 'Data terisi',
             'data' => $insert
-        ],200);
+        ], 200);
     }
 
-    public function readAll(){
-        $datas = ModelsBuku::with('categories')->get();
-        if($datas->isEmpty()){
+    public function read()
+    {
+        $datas = ModelsKategori::with('books')->get();
+        if ($datas->isEmpty()) {
             return response()->json([
                 'message' => 'Data Masih Kosong..'
-            ],400);
+            ], 400);
         }
         return response()->json([
             'data' => $datas
-        ],200);
+        ], 200);
     }
 
-    public function readFromId($id){
-        $datas = ModelsBuku::firstWhere('id',$id);
-        if(!$datas){
+    public function readFromId($id)
+    {
+        $datas = ModelsKategori::firstWhere('id', $id);
+        if (!$datas) {
             return response()->json([
                 'message' => 'Data tidak ditemukan...'
-            ],400);
+            ], 400);
         }
         return response()->json([
             'data' => $datas
-        ],200);
+        ], 200);
     }
 
-    public function updateFromId(BookRequest $request, $id) {
-        $datas = ModelsBuku::where('id', $id)->first();
-        $datas->update($request->all());
-        if(!$datas){
+    public function updateFromId(KategoriRequest $request, $id)
+    {
+        $datas = KategoriRequest::where('id', $id)->first();
+        $datas->update($request->all);
+        if (!$datas) {
             return response()->json([
                 'sukses' => 'Tidak',
                 'msg'    => 'Data Tidak Berhasil Diedit'
@@ -55,13 +58,13 @@ class Buku extends Controller
             'sukses' => 'Ya',
             'msg'    => 'Data Berhasil Diedit'
         ]);
-
     }
 
-    public function delete($id) {
-        $isDataAvailable = ModelsBuku::where('id', $id)->first();
+    public function delete($id)
+    {
+        $isDataAvailable = KategoriRequest::where('id', $id)->first();
 
-        if(!$isDataAvailable){
+        if (!$isDataAvailable) {
             return response()->json([
                 'sukses' => 'Tidak',
                 'msg'    => 'Data Tidak Ditemukan'
@@ -69,7 +72,7 @@ class Buku extends Controller
         }
 
         $deleteData = $isDataAvailable->delete();
-        if(!$deleteData){
+        if (!$deleteData) {
             return response()->json([
                 'sukses' => 'Ya',
                 'msg'    => 'Data Tidak Berhasil Berhasil Dihapus'
@@ -78,7 +81,7 @@ class Buku extends Controller
 
         return response()->json([
             'sukses' => 'Ya',
-            'msg'    => "Data dengan ID $id dan nama buku $isDataAvailable->judul Berhasil Berhasil Dihapus"
+            'msg'    => "Data dengan ID $id dan nama kategori $isDataAvailable->nama Berhasil Berhasil Dihapus"
         ]);
     }
 }

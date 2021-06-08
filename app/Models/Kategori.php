@@ -10,6 +10,12 @@ class Kategori extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     public $incrementing = true;
+    protected $fillable = [
+        'id',
+        'nama',
+    ];
+    protected $table = 'kategori';
+
     public function books(){
         return $this->hasMany(Buku::class);
     }

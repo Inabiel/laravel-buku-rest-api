@@ -22,6 +22,7 @@ class Buku extends Migration
             $table->integer('tahun_terbit');
             $table->string('sampul');
             $table->string('sinopsis');
+            $table->timestamps();
             $table->foreign('kategori_id')->references('id')->on('kategori');
         });
 

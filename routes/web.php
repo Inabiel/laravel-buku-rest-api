@@ -18,6 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/buku')->group(function () {
- Route::post('/add', [Buku::class, 'create']);
-});
+

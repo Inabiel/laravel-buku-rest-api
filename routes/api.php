@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Buku;
-
+use App\Http\Controllers\Kategori;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +28,11 @@ Route::prefix('/buku')->group(function () {
     Route::delete('delete/{id}', [Buku::class, 'delete']);
     Route::put('/edit/{id}', [Buku::class, 'updateFromId']);
    });
+
+Route::prefix('/kategori')->group(function () {
+    Route::get('/', [Kategori::class, 'read']);
+    Route::post('/add', [Kategori::class, 'store']);
+    Route::get('/{id}', [Kategori::class, 'readFromId']);
+    Route::delete('delete/{id}', [Kategori::class, 'delete']);
+    Route::put('/edit/{id}', [Kategori::class, 'updateFromId']);
+});
