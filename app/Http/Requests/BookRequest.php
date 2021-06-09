@@ -25,12 +25,12 @@ class BookRequest extends FormRequest
     {
         return [
             'kategori_id' => 'required|numeric',
-            'judul' => 'required|alpha_num|min:4|',
-            'pengarang' => 'required|alpha_num|min:4',
-            'penerbit' => 'required|alpha_num|min:4',
+            'judul' => 'required|string|min:4|',
+            'pengarang' => 'required|string|min:4',
+            'penerbit' => 'required|string|min:4',
             'tahun_terbit' => 'required|numeric',
             'sampul' => 'required',
-            'sinopsis' => 'required|alpha_num|min:6',
+            'sinopsis' => 'required|string|min:6',
         ];
     }
 }

@@ -25,14 +25,14 @@ Route::prefix('/buku')->group(function () {
     Route::get('/',[Buku::class, 'readAll']);
     Route::post('/add', [Buku::class, 'store']);
     Route::get('/{id}', [Buku::class, 'readFromId']);
-    Route::delete('delete/{id}', [Buku::class, 'delete']);
     Route::put('/edit/{id}', [Buku::class, 'updateFromId']);
+    Route::delete('delete/{id}', [Buku::class, 'delete']);
    });
 
 Route::prefix('/kategori')->group(function () {
     Route::get('/', [Kategori::class, 'read']);
     Route::post('/add', [Kategori::class, 'store']);
     Route::get('/{id}', [Kategori::class, 'readFromId']);
-    Route::delete('delete/{id}', [Kategori::class, 'delete']);
     Route::put('/edit/{id}', [Kategori::class, 'updateFromId']);
+    Route::delete('delete/{id}', [Kategori::class, 'delete']);
 });

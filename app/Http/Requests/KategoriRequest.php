@@ -25,7 +25,7 @@ class KategoriRequest extends FormRequest
     {
         return [
             'id' => 'required|numeric',
-            'nama' => 'required|alpha_num'
+            'nama' => 'required|string'
         ];
     }
 }

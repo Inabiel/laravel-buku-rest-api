@@ -9,12 +9,17 @@ class Kategori extends Controller
 {
     public function store(KategoriRequest $request)
     {
-        $insert = ModelsKategori::create($request->all());
-
+        $isDataExists = ModelsKategori::find($request->id);
+        if(!$isDataExists){
+            $insert = ModelsKategori::create($request->all());
+            return response()->json([
+                'message' => 'Data terisi',
+                'data' => $insert
+            ], 200);
+        }
         return response()->json([
-            'message' => 'Data terisi',
-            'data' => $insert
-        ], 200);
+            'message' => 'Data Sudah Ada di Dalam Database',
+        ], 500);
     }
 
     public function read()
@@ -45,12 +50,12 @@ class Kategori extends Controller
 
     public function updateFromId(KategoriRequest $request, $id)
     {
-        $datas = KategoriRequest::where('id', $id)->first();
-        $datas->update($request->all);
+        $datas = ModelsKategori::where('id', $id)->first();
+        $datas->update($request->all());
         if (!$datas) {
             return response()->json([
                 'sukses' => 'Tidak',
-                'msg'    => 'Data Tidak Berhasil Diedit'
+                'msg'    => 'Data Tidak Ditemukan'
             ]);
         }
 
@@ -62,7 +67,7 @@ class Kategori extends Controller
 
     public function delete($id)
     {
-        $isDataAvailable = KategoriRequest::where('id', $id)->first();
+        $isDataAvailable = ModelsKategori::where('id', $id)->first();
 
         if (!$isDataAvailable) {
             return response()->json([
@@ -84,4 +89,5 @@ class Kategori extends Controller
             'msg'    => "Data dengan ID $id dan nama kategori $isDataAvailable->nama Berhasil Berhasil Dihapus"
         ]);
     }
+
 }

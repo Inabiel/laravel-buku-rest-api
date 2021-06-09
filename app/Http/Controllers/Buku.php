@@ -18,7 +18,7 @@ class Buku extends Controller
     }
 
     public function readAll(){
-        $datas = ModelsBuku::with('categories')->get();
+        $datas = ModelsBuku::with('categories:id,nama')->get();
         if($datas->isEmpty()){
             return response()->json([
                 'message' => 'Data Masih Kosong..'
